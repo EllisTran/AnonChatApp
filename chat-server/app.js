@@ -17,7 +17,7 @@ app.use('/messages', messagesRouter);
 const mongo = require("mongodb").MongoClient;
 const url = 'mongodb+srv://ellisktran:89wj1EQNiNjTQLxO@cluster0.w5lvufi.mongodb.net/?retryWrites=true&w=majority';
 let db;
-
+console.log("Connecting to Chat History");
 mongo.connect(url, { useNewUrlParser: true, useUnifiedTopology: true, }, (err, client) => {
 	if (err) {
 		console.error(err)
@@ -25,6 +25,7 @@ mongo.connect(url, { useNewUrlParser: true, useUnifiedTopology: true, }, (err, c
 	}
 	db = client.db("AnonChatRoom");
 	chatHistory = db.collection("AnonChatInformation");
+	console.log("Connected to Chat History!")
 }
 );
 

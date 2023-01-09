@@ -20,12 +20,18 @@ class Connection {
 
 	async sendMessage(message) {
 		// Save to DB
-		await chatHistory.insertOne(message, function (err, res) {
-		  if (err) throw err;
-		  console.log("1 document inserted");
-		  // db.close();
-		});
-		this.io.sockets.emit('message', message);
+		try {
+			await chatHistory.insertOne(message, function (err, res) {
+				if (err) throw err;
+				console.log("1 document inserted");
+				// db.close();
+			});
+			this.io.sockets.emit('message', message);
+		} catch (error) {
+			console.error(error);
+			console.error("Please wait until successfully connected to DB");
+		}
+
 	}
 
 	handleMessage(value) {

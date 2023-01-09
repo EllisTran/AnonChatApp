@@ -20,12 +20,23 @@ router.get('/', async function (req, res, next) {
       res.send(messages);
     });
   };
-  await getMessages(chatHistory);
+  try {
+    await getMessages(chatHistory);
+  } catch (error) {
+    console.error(error);
+    console.error("Please wait until you are connected to the DB successfully");
+  }
 });
 
-router.get('/deleteAllMessages', async function (req, res, next){
-  await chatHistory.deleteMany({});
-  res.send('Deleted All Messages');
+router.get('/deleteAllMessages', async function (req, res, next) {
+  try {
+    await chatHistory.deleteMany({});
+    res.send('Deleted All Messages');
+  } catch (error) {
+    console.error(error);
+    console.error("Please wait until you are connected to the DB successfully");
+  }
+
 });
 
 module.exports = router;
